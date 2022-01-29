@@ -1337,12 +1337,12 @@ public static partial class RequestDelegateFactory
 
         static async Task ExecuteAwaited(Task<T> task, HttpContext httpContext)
         {
-            await httpContext.Response.WriteAsJsonAsync(await task);
+            await httpContext.Response.WriteAsJsonAsync<object?>(await task);
         }
 
         if (task.IsCompletedSuccessfully)
         {
-            return httpContext.Response.WriteAsJsonAsync(task.GetAwaiter().GetResult());
+            return httpContext.Response.WriteAsJsonAsync<object?>(task.GetAwaiter().GetResult());
         }
 
         return ExecuteAwaited(task, httpContext);
@@ -1391,12 +1391,12 @@ public static partial class RequestDelegateFactory
     {
         static async Task ExecuteAwaited(ValueTask<T> task, HttpContext httpContext)
         {
-            await httpContext.Response.WriteAsJsonAsync(await task);
+            await httpContext.Response.WriteAsJsonAsync<object?>(await task);
         }
 
         if (task.IsCompletedSuccessfully)
         {
-            return httpContext.Response.WriteAsJsonAsync(task.GetAwaiter().GetResult());
+            return httpContext.Response.WriteAsJsonAsync<object?>(task.GetAwaiter().GetResult());
         }
 
         return ExecuteAwaited(task, httpContext);
